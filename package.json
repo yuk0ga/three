@@ -1,0 +1,31 @@
+{
+  "name": "threejs-experiments",
+  "version": "1.0.0",
+  "description": "experiments with three js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuk0ga/three.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuk0ga/three/issues"
+  },
+  "homepage": "https://github.com/yuk0ga/three#readme",
+  "dependencies": {
+    "dat.gui": "^0.7.7",
+    "three": "^0.117.1"
+  },
+  "devDependencies": {
+    "ts-loader": "^7.0.5",
+    "typescript": "^3.9.5",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
+  }
+}
