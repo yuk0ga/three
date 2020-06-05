@@ -36,7 +36,6 @@ function init() {
     update(renderer, scene, camera);
 }
 
-
 function update(renderer, scene, camera) {
     var cube = scene.getObjectByName('cube');
     cube.rotation.y += 0.05;
