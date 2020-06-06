@@ -26,7 +26,7 @@ function init() {
     camera.lookAt(new THREE.Vector3(0, 0, 0));
 
     // create a cube
-    const geometry = new THREE.BoxGeometry(300, 300, 300);
+    const geometry = new THREE.BoxGeometry(150, 300, 300);
     // define a material
     const material = new THREE.MeshNormalMaterial();
     // create a cube mesh with material
