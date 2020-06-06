@@ -1,4 +1,5 @@
-import * as THREE from 'three'
+import * as THREE from 'three';
+import * as dat from 'dat.gui';
 
 window.addEventListener('load', init);
 
@@ -11,6 +12,8 @@ function init() {
 
     // create a scene
     const scene = new THREE.Scene();
+
+    const gui = new dat.GUI();
 
     // create a camera
     const camera = new THREE.PerspectiveCamera(
@@ -26,12 +29,16 @@ function init() {
     camera.lookAt(new THREE.Vector3(0, 0, 0));
 
     // create a cube
-    const geometry = new THREE.BoxGeometry(150, 300, 300);
+    const geometry = new THREE.BoxGeometry(300, 300, 300);
     // define a material
     const material = new THREE.MeshNormalMaterial();
     // create a cube mesh with material
     const cubeMesh = new THREE.Mesh(geometry, material);
     cubeMesh.name = 'cube';
+
+    gui.add(cubeMesh.scale, 'x', 0.1, 5);
+    gui.add(cubeMesh.scale, 'y', 0.1, 5);
+    gui.add(cubeMesh.scale, 'z', 0.1, 5);
 
     // add cube to scene
     scene.add(cubeMesh);
