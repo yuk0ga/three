@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import * as dat from 'dat.gui';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 window.addEventListener('load', init);
 
@@ -40,17 +41,19 @@ function init() {
     gui.add(cubeMesh.scale, 'y', 0.1, 5);
     gui.add(cubeMesh.scale, 'z', 0.1, 5);
 
+    const controls = new OrbitControls(camera, renderer.domElement);
+
     // add cube to scene
     scene.add(cubeMesh);
-    update(renderer, scene, camera);
+    update(renderer, scene, camera, controls);
 }
 
-function update(renderer, scene, camera) {
+function update(renderer, scene, camera, controls) {
     var cube = scene.getObjectByName('cube');
     cube.rotation.y += 0.05;
     cube.rotation.z += 0.05;
 
     renderer.render(scene, camera);
 
-    requestAnimationFrame(() => update(renderer, scene, camera));
+    requestAnimationFrame(() => update(renderer, scene, camera, controls));
 }
