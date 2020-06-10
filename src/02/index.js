@@ -43,6 +43,15 @@ function init() {
     plane.position.y = - cube.geometry.parameters.height / 2
     plane.rotation.x = Math.PI/2;
     scene.add(plane);
+
+    const pointLight = getPointLight(1);
+    pointLight.position.y = 101;
+    scene.add(pointLight);
+
+    const sphere = getSphere(5);
+    pointLight.add(sphere);
+
+    gui.add(pointLight.position, 'y', 50, 200);
     
     const controls = new OrbitControls(camera, renderer.domElement);
     update(renderer, scene, camera, controls);
@@ -70,6 +79,20 @@ function getPlane(size) {
     const material = new THREE.MeshPhongMaterial({
         color: '#aaaaaa',
         side: THREE.DoubleSide
+    });
+    const mesh = new THREE.Mesh(geometry, material);
+    return mesh;
+}
+
+function getPointLight(intensity) {
+    const light = new THREE.PointLight('#ffffff', intensity);
+    return light;
+}
+
+function getSphere(size) {
+    const geometry = new THREE.SphereGeometry(size, 24, 24);
+    const material = new THREE.MeshBasicMaterial({
+        color: '#fff'
     });
     const mesh = new THREE.Mesh(geometry, material);
     return mesh;
