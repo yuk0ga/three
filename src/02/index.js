@@ -11,6 +11,7 @@ function init() {
     });
     renderer.setSize(window.innerWidth, window.innerHeight); // width, height
     renderer.setClearColor('#aaaaaa');
+    renderer.shadowMap.enabled = true;
 
     let enableFog = false;
 
@@ -51,7 +52,9 @@ function init() {
     const sphere = getSphere(5);
     pointLight.add(sphere);
 
-    gui.add(pointLight.position, 'y', 50, 200);
+    gui.add(pointLight.position, 'x', -250, 250);
+    gui.add(pointLight.position, 'y', 50, 450);
+    gui.add(pointLight.position, 'z', -250, 250);
     
     const controls = new OrbitControls(camera, renderer.domElement);
     update(renderer, scene, camera, controls);
@@ -71,6 +74,7 @@ function getCube(width, height, depth) {
         color: '#aaaaaa'
     });
     const mesh = new THREE.Mesh(geometry, material);
+    mesh.castShadow = true;
     return mesh;
 }
 
@@ -81,11 +85,13 @@ function getPlane(size) {
         side: THREE.DoubleSide
     });
     const mesh = new THREE.Mesh(geometry, material);
+    mesh.receiveShadow = true;
     return mesh;
 }
 
 function getPointLight(intensity) {
     const light = new THREE.PointLight('#ffffff', intensity);
+    light.castShadow = true;
     return light;
 }
 
