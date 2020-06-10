@@ -10,7 +10,9 @@ function init() {
         canvas: document.querySelector('#myCanvas')
     });
     renderer.setSize(window.innerWidth, window.innerHeight); // width, height
-    renderer.setClearColor('#ffffff');
+    renderer.setClearColor('#aaaaaa');
+
+    let enableFog = false;
 
     // create a scene
     const scene = new THREE.Scene();
@@ -30,7 +32,9 @@ function init() {
     camera.position.set(0, 200, 1500);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
 
-    scene.fog = new THREE.FogExp2('#ffffff', 0.001);
+    if (enableFog) {
+        scene.fog = new THREE.FogExp2('#aaaaaa', 0.001);
+    }
 
     const cube = getCube(100, 100, 100);
     scene.add(cube);
@@ -54,8 +58,8 @@ function update(renderer, scene, camera, controls) {
 
 function getCube(width, height, depth) {
     const geometry = new THREE.BoxGeometry(width, height, depth);
-    const material = new THREE.MeshBasicMaterial({
-        color: '#ff00ff'
+    const material = new THREE.MeshPhongMaterial({
+        color: '#aaaaaa'
     });
     const mesh = new THREE.Mesh(geometry, material);
     return mesh;
@@ -63,8 +67,8 @@ function getCube(width, height, depth) {
 
 function getPlane(size) {
     const geometry = new THREE.PlaneGeometry(size, size, size);
-    const material = new THREE.MeshBasicMaterial({
-        color: '#12a12a',
+    const material = new THREE.MeshPhongMaterial({
+        color: '#aaaaaa',
         side: THREE.DoubleSide
     });
     const mesh = new THREE.Mesh(geometry, material);
