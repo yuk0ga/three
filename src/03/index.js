@@ -30,7 +30,7 @@ function init() {
     // anything beyond the near-far clipping plane
     // will not be displayed/calculated
     
-    camera.position.set(0, 200, 1500);
+    camera.position.set(0, 200, 500);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
 
     if (enableFog) {
@@ -41,21 +41,24 @@ function init() {
     plane.rotation.x = Math.PI/2;
     scene.add(plane);
 
-    const spotLight = getSpotLight(1);
-    spotLight.position.y = 101;
-    scene.add(spotLight);
+    const directionalLight = getDirectionalLight(2);
+    directionalLight.position.y = 101;
+    scene.add(directionalLight);
 
     const sphere = getSphere(5);
-    spotLight.add(sphere);
+    directionalLight.add(sphere);
 
     const cubeGrid = getCubeGrid(15, 15);
     scene.add(cubeGrid);
 
-    gui.add(spotLight.position, 'x', -250, 250);
-    gui.add(spotLight.position, 'y', 50, 450);
-    gui.add(spotLight.position, 'z', -250, 250);
-    gui.add(spotLight, 'intensity', 0.001, 200);
-    gui.add(spotLight, 'penumbra', 0, 1);
+    gui.add(directionalLight.position, 'x', -250, 250);
+    gui.add(directionalLight.position, 'y', 50, 450);
+    gui.add(directionalLight.position, 'z', -250, 250);
+    gui.add(directionalLight, 'intensity', 0.001, 200);
+    // gui.add(directionalLight, 'penumbra', 0, 1);
+
+    const helper = new THREE.CameraHelper(directionalLight.shadow.camera);
+    scene.add(helper);
     
     const controls = new OrbitControls(camera, renderer.domElement);
     update(renderer, scene, camera, controls);
@@ -126,6 +129,18 @@ function getSpotLight(intensity) {
     light.shadow.bias = 0.001;
     light.shadow.mapSize.width = 2048;
     light.shadow.mapSize.height = 2048;
+
+    return light;
+}
+
+function getDirectionalLight(intensity) {
+    const light = new THREE.DirectionalLight('#ffffff', intensity);
+    light.castShadow = true;
+
+    light.shadow.camera.left = -150;
+    light.shadow.camera.bottom = -150;
+    light.shadow.camera.right = 150;
+    light.shadow.camera.top = 150;
 
     return light;
 }
