@@ -42,8 +42,13 @@ function init() {
     scene.add(plane);
 
     const directionalLight = getDirectionalLight(2);
+    directionalLight.position.x = -80;
     directionalLight.position.y = 101;
+    directionalLight.position.z = -110;
     scene.add(directionalLight);
+
+    const ambientLight = getAmbientLight(1);
+    scene.add(ambientLight);
 
     const sphere = getSphere(5);
     directionalLight.add(sphere);
@@ -142,6 +147,11 @@ function getDirectionalLight(intensity) {
     light.shadow.camera.right = 150;
     light.shadow.camera.top = 150;
 
+    return light;
+}
+
+function getAmbientLight(intensity) {
+    const light = new THREE.AmbientLight('#103050', intensity);
     return light;
 }
 
