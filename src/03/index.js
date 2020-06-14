@@ -41,20 +41,21 @@ function init() {
     plane.rotation.x = Math.PI/2;
     scene.add(plane);
 
-    const pointLight = getPointLight(1);
-    pointLight.position.y = 101;
-    scene.add(pointLight);
+    const spotLight = getSpotLight(1);
+    spotLight.position.y = 101;
+    scene.add(spotLight);
 
     const sphere = getSphere(5);
-    pointLight.add(sphere);
+    spotLight.add(sphere);
 
     const cubeGrid = getCubeGrid(15, 15);
     scene.add(cubeGrid);
 
-    gui.add(pointLight.position, 'x', -250, 250);
-    gui.add(pointLight.position, 'y', 50, 450);
-    gui.add(pointLight.position, 'z', -250, 250);
-    gui.add(pointLight, 'intensity', 0.001, 200);
+    gui.add(spotLight.position, 'x', -250, 250);
+    gui.add(spotLight.position, 'y', 50, 450);
+    gui.add(spotLight.position, 'z', -250, 250);
+    gui.add(spotLight, 'intensity', 0.001, 200);
+    gui.add(spotLight, 'penumbra', 0, 1);
     
     const controls = new OrbitControls(camera, renderer.domElement);
     update(renderer, scene, camera, controls);
@@ -115,6 +116,17 @@ function getPlane(size) {
 function getPointLight(intensity) {
     const light = new THREE.PointLight('#ffffff', intensity);
     light.castShadow = true;
+    return light;
+}
+
+function getSpotLight(intensity) {
+    const light = new THREE.SpotLight('#ffffff', intensity);
+    light.castShadow = true;
+
+    light.shadow.bias = 0.001;
+    light.shadow.mapSize.width = 2048;
+    light.shadow.mapSize.height = 2048;
+
     return light;
 }
 
