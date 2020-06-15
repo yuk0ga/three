@@ -13,6 +13,8 @@ function init() {
     renderer.setClearColor('#aaaaaa');
     renderer.shadowMap.enabled = true;
 
+    const clock = new THREE.Clock();
+
     let enableFog = false;
 
     // create a scene
@@ -47,14 +49,15 @@ function init() {
     directionalLight.position.z = -110;
     scene.add(directionalLight);
 
-    const ambientLight = getAmbientLight(1);
-    scene.add(ambientLight);
+    // const ambientLight = getAmbientLight(1);
+    // scene.add(ambientLight);
 
     const sphere = getSphere(5);
     directionalLight.add(sphere);
 
     const cubeGrid = getCubeGrid(15, 15);
     scene.add(cubeGrid);
+    cubeGrid.name = 'cubeGrid';
 
     gui.add(directionalLight.position, 'x', -250, 250);
     gui.add(directionalLight.position, 'y', 50, 450);
@@ -66,14 +69,21 @@ function init() {
     scene.add(helper);
     
     const controls = new OrbitControls(camera, renderer.domElement);
-    update(renderer, scene, camera, controls);
+    update(renderer, scene, camera, controls, clock);
 }
 
-function update(renderer, scene, camera, controls) {
-
+function update(renderer, scene, camera, controls, clock) {
     renderer.render(scene, camera);
 
-    requestAnimationFrame(() => update(renderer, scene, camera, controls));
+    const timeElapsed = clock.getElapsedTime();
+
+    const cubeGrid = scene.getObjectByName('cubeGrid');
+    cubeGrid.children.forEach((child, index) => {
+        child.scale.y = (Math.sin(timeElapsed * 5 + index) + 1) / 2 + 0.001;
+        child.position.y = child.scale.y/2;
+    })
+
+    requestAnimationFrame(() => update(renderer, scene, camera, controls, clock));
     
 }
 
