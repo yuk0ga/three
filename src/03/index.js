@@ -59,14 +59,16 @@ function init() {
     scene.add(cubeGrid);
     cubeGrid.name = 'cubeGrid';
 
-    gui.add(directionalLight.position, 'x', -250, 250);
-    gui.add(directionalLight.position, 'y', 50, 450);
-    gui.add(directionalLight.position, 'z', -250, 250);
-    gui.add(directionalLight, 'intensity', 0.001, 200);
-    // gui.add(directionalLight, 'penumbra', 0, 1);
-
     const helper = new THREE.CameraHelper(directionalLight.shadow.camera);
     scene.add(helper);
+
+    const light = gui.addFolder("Light");
+    light.add(directionalLight.position, 'x', -250, 250);
+    light.add(directionalLight.position, 'y', 50, 450);
+    light.add(directionalLight.position, 'z', -250, 250);
+    light.add(directionalLight, 'intensity', 0.001, 2);
+    light.add(helper, 'visible', 0, 1);
+    // light.add(directionalLight, 'penumbra', 0, 1);
     
     const controls = new OrbitControls(camera, renderer.domElement);
     update(renderer, scene, camera, controls, clock);
@@ -81,6 +83,8 @@ function update(renderer, scene, camera, controls, clock) {
     cubeGrid.children.forEach((child, index) => {
         child.scale.y = (Math.sin(timeElapsed * 5 + index) + 1) / 2 + 0.001;
         child.position.y = child.scale.y/2;
+        const val = (Math.sin(timeElapsed * 5 + index) + 1) / 2;
+        child.material.color = new THREE.Color(0, val, val);
     })
 
     requestAnimationFrame(() => update(renderer, scene, camera, controls, clock));
