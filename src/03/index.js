@@ -45,7 +45,7 @@ function init() {
 
     const directionalLight = getDirectionalLight(2);
     directionalLight.position.x = 110;
-    directionalLight.position.y = 80;
+    directionalLight.position.y = 114;
     directionalLight.position.z = -165;
     scene.add(directionalLight);
 
