@@ -32,7 +32,7 @@ function init() {
     // anything beyond the near-far clipping plane
     // will not be displayed/calculated
     
-    camera.position.set(0, 200, 500);
+    camera.position.set(200, 200, 350);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
 
     if (enableFog) {
@@ -44,9 +44,9 @@ function init() {
     scene.add(plane);
 
     const directionalLight = getDirectionalLight(2);
-    directionalLight.position.x = -80;
-    directionalLight.position.y = 101;
-    directionalLight.position.z = -110;
+    directionalLight.position.x = 110;
+    directionalLight.position.y = 80;
+    directionalLight.position.z = -165;
     scene.add(directionalLight);
 
     // const ambientLight = getAmbientLight(1);
