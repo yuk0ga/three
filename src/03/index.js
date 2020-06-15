@@ -60,6 +60,7 @@ function init() {
     cubeGrid.name = 'cubeGrid';
 
     const helper = new THREE.CameraHelper(directionalLight.shadow.camera);
+    helper.visible = false;
     scene.add(helper);
 
     const light = gui.addFolder("Light");
@@ -85,7 +86,7 @@ function update(renderer, scene, camera, controls, clock) {
         child.position.y = child.scale.y/2;
         const val = (Math.sin(timeElapsed * 5 + index) + 1) / 2;
         child.material.color = new THREE.Color(0, val, val);
-    })
+    });
 
     requestAnimationFrame(() => update(renderer, scene, camera, controls, clock));
     
