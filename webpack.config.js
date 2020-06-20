@@ -7,7 +7,8 @@ module.exports = {
     entry: {
         '01/index': './src/01/index.js',
         '02/index': './src/02/index.js',
-        '03/index': './src/03/index.js'
+        '03/index': './src/03/index.js',
+        '04/index': './src/04/index.js'
     },
     output: {
         path: outputPath,
