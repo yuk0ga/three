@@ -58,11 +58,11 @@ function init() {
     light.add(helper, 'visible', 0, 1);
     // light.add(directionalLight, 'penumbra', 0, 1);
     
-    const controls = new OrbitControls(camera, renderer.domElement);
-    update(renderer, scene, camera, controls, clock);
+    // const controls = new OrbitControls(camera, renderer.domElement);
+    update(renderer, scene, camera, clock);
 }
 
-function update(renderer, scene, camera, controls, clock) {
+function update(renderer, scene, camera, clock) {
     renderer.render(scene, camera);
 
     const timeElapsed = clock.getElapsedTime();
@@ -79,7 +79,7 @@ function update(renderer, scene, camera, controls, clock) {
         child.material.color = new THREE.Color(val, val2, 210);
     });
 
-    requestAnimationFrame(() => update(renderer, scene, camera, controls, clock));
+    requestAnimationFrame(() => update(renderer, scene, camera, clock));
     
 }
 
