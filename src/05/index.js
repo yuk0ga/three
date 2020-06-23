@@ -15,7 +15,7 @@ function init() {
         canvas: document.querySelector('#myCanvas')
     });
     renderer.setSize(window.innerWidth, window.innerHeight); // width, height
-    renderer.setClearColor('#aae2e6');
+    renderer.setClearColor('#030542');
     
     // create a scene
     const scene = new THREE.Scene();
@@ -32,10 +32,10 @@ function init() {
     // anything beyond the near-far clipping plane
     // will not be displayed/calculated
     
-    camera.position.set(0, 0, 300);
+    camera.position.set(0, 0, 400);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
     
-    const controls = new OrbitControls(camera, renderer.domElement);
+    // const controls = new OrbitControls(camera, renderer.domElement);
     const clock = new THREE.Clock();
 
     // loading the font and geometry
@@ -51,7 +51,7 @@ function init() {
         loader.load('../assets/fonts/Lato-Black.png', (texture) => {
             // Start and animate renderer
             createMesh(geometry, texture, scene);
-            update(renderer, scene, camera, clock, controls);
+            update(renderer, scene, camera, clock);
         });
     });
 }
@@ -80,7 +80,7 @@ function createMesh(geometry, texture, scene) {
     scene.add(mesh);
 }
 
-function update(renderer, scene, camera, clock, controls) {
+function update(renderer, scene, camera, clock) {
     renderer.render(scene, camera);
 
     const mesh = scene.getObjectByName('textMesh');
@@ -88,6 +88,6 @@ function update(renderer, scene, camera, clock, controls) {
     mesh.material.uniforms.time.value = clock.getElapsedTime();
     mesh.material.uniformsNeedUpdate = true;
 
-    requestAnimationFrame(() => update(renderer, scene, camera, clock, controls));
+    requestAnimationFrame(() => update(renderer, scene, camera, clock));
     
 }
