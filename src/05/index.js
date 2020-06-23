@@ -4,6 +4,8 @@ const createGeometry = require('three-bmfont-text');
 const loadFont = require('load-bmfont');
 const MSDFShader = require('three-bmfont-text/shaders/msdf');
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+const vertexShader = require('./shaders/vertex.glsl');
+const fragmentShader = require('./shaders/fragment.glsl');
 
 window.addEventListener('load', init);
 
@@ -13,7 +15,7 @@ function init() {
         canvas: document.querySelector('#myCanvas')
     });
     renderer.setSize(window.innerWidth, window.innerHeight); // width, height
-    renderer.setClearColor('#fff');
+    renderer.setClearColor('#aae2e6');
     
     // create a scene
     const scene = new THREE.Scene();
@@ -34,6 +36,7 @@ function init() {
     camera.lookAt(new THREE.Vector3(0, 0, 0));
     
     const controls = new OrbitControls(camera, renderer.domElement);
+    const clock = new THREE.Clock();
 
     // loading the font and geometry
     loadFont('../assets/fonts/Lato-Black.fnt', (err, font) => {
@@ -48,7 +51,7 @@ function init() {
         loader.load('../assets/fonts/Lato-Black.png', (texture) => {
             // Start and animate renderer
             createMesh(geometry, texture, scene);
-            update(renderer, scene, camera, controls);
+            update(renderer, scene, camera, clock, controls);
         });
     });
 }
@@ -57,24 +60,34 @@ function init() {
 function createMesh(geometry, texture, scene) {
     // Create material with msdf shader from three-bmfont-text
     const material = new THREE.RawShaderMaterial(MSDFShader({
+        vertexShader,
+        fragmentShader,
         map: texture,
-        color: 0x000000, // We'll remove it later when defining the fragment shader
+        // color: 0x000000, // We'll remove it later when defining the fragment shader
         side: THREE.DoubleSide,
         transparent: true,
         negate: false,
     }));
 
+    // Create time uniform from default uniforms object
+    material.uniforms.time = { type: 'f', value: 0.0 };
+
     // Create mesh of text       
     const mesh = new THREE.Mesh(geometry, material);
     mesh.position.set(-130, 0, 0); // Move according to text size
     mesh.rotation.set(Math.PI, 0, 0); // Spin to face correctly
+    mesh.name = 'textMesh';
     scene.add(mesh);
 }
 
-function update(renderer, scene, camera, controls) {
-
+function update(renderer, scene, camera, clock, controls) {
     renderer.render(scene, camera);
 
-    requestAnimationFrame(() => update(renderer, scene, camera, controls));
+    const mesh = scene.getObjectByName('textMesh');
+    // Update time uniform each frame
+    mesh.material.uniforms.time.value = clock.getElapsedTime();
+    mesh.material.uniformsNeedUpdate = true;
+
+    requestAnimationFrame(() => update(renderer, scene, camera, clock, controls));
     
 }

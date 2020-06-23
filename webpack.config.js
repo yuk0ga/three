@@ -20,6 +20,16 @@ module.exports = {
     devServer: {
         contentBase: outputPath 
     },
+    module: {
+        rules: [
+            {
+                test: /\.glsl$/,
+                use: {
+                  loader: 'webpack-glsl-loader'
+                }
+            }
+        ]
+    },
     plugins: [
         new webpack.ProvidePlugin({
           THREE: 'three'
@@ -29,5 +39,5 @@ module.exports = {
             { from: 'assets', to: 'assets' }
           ]
         })
-      ]
+    ]
 } 
