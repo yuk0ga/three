@@ -1,11 +1,11 @@
 import * as THREE from 'three';
-import * as dat from 'dat.gui';
 const createGeometry = require('three-bmfont-text');
 const loadFont = require('load-bmfont');
 const MSDFShader = require('three-bmfont-text/shaders/msdf');
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 const vertexShader = require('./shaders/vertex.glsl');
 const fragmentShader = require('./shaders/fragment.glsl');
+const Tweakpane = require('tweakpane');
 
 window.addEventListener('load', init);
 
@@ -20,7 +20,7 @@ function init() {
     // create a scene
     const scene = new THREE.Scene();
     
-    const gui = new dat.GUI();
+    const pane = new Tweakpane();
     
     // create a camera
     const camera = new THREE.PerspectiveCamera(
