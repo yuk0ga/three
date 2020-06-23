@@ -20,8 +20,11 @@
   },
   "homepage": "https://github.com/yuk0ga/three#readme",
   "dependencies": {
+    "copy-webpack-plugin": "^6.0.2",
     "dat.gui": "^0.7.7",
-    "three": "^0.117.1"
+    "load-bmfont": "^1.4.0",
+    "three": "^0.117.1",
+    "three-bmfont-text": "^2.3.0"
   },
   "devDependencies": {
     "html-webpack-plugin": "^4.3.0",
