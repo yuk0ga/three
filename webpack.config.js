@@ -11,7 +11,8 @@ module.exports = {
         '02/index': './src/02/index.js',
         '03/index': './src/03/index.js',
         '04/index': './src/04/index.js',
-        '05/index': './src/05/index.js'
+        '05/index': './src/05/index.js',
+        '06/index': './src/06/index.js',
     },
     output: {
         path: outputPath,
