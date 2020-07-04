@@ -75,6 +75,7 @@ document.addEventListener('mousemove', (e) => {
     // mousemove / touchmove
     uMouse.x = ( e.clientX / window.innerWidth ) ;
     uMouse.y = 1. - ( e.clientY/ window.innerHeight );
+    console.log(e);
   });
 
 function update(composer, scene, camera) {
