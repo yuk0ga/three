@@ -23,7 +23,7 @@
     "copy-webpack-plugin": "^6.0.2",
     "dat.gui": "^0.7.7",
     "load-bmfont": "^1.4.0",
-    "three": "^0.117.1",
+    "three": "^0.137.0",
     "three-bmfont-text": "^2.3.0",
     "tweakpane": "^1.5.2"
   },
